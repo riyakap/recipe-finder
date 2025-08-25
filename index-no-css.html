@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder - No CSS Test</title>
+    
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .loading-overlay { 
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+            background: rgba(0,0,0,0.8); color: white; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; z-index: 9999;
+        }
+        .alert { 
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            padding: 15px 20px; border-radius: 8px; font-weight: bold; z-index: 10000;
+        }
+        .alert.error { background: #f44336; color: white; }
+        .alert.success { background: #4caf50; color: white; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="container">
+            <h1 class="app-title">
+                <span class="app-icon">🍳</span>
+                Recipe Finder
+            </h1>
+            <p class="app-subtitle">Find perfect recipes with what you have</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main">
+        <div class="container">
+            <!-- Search Section -->
+            <section class="search-section" aria-label="Recipe search">
+                <div class="ingredient-input-container">
+                    <label for="ingredient-input" class="input-label">
+                        What ingredients do you have?
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="text" 
+                               id="ingredient-input" 
+                               class="ingredient-input"
+                               placeholder="Type ingredients (e.g., chicken, rice, tomatoes)..."
+                               autocomplete="off"
+                               aria-describedby="ingredient-help"
+                               spellcheck="false">
+                        <div class="suggestions-dropdown" 
+                             id="suggestions-dropdown" 
+                             role="listbox" 
+                             aria-label="Ingredient suggestions"
+                             style="display: none;"></div>
+                    </div>
+                    <div id="ingredient-help" class="sr-only">
+                        Type ingredient names and select from suggestions. Press Enter to add ingredients.
+                    </div>
+                    <div class="ingredient-tags" id="ingredient-tags" role="list" aria-label="Selected ingredients"></div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label for="cooking-time">⏱️ Cooking Time</label>
+                        <select id="cooking-time" class="filter-select" aria-label="Maximum cooking time">
+                            <option value="">Any time</option>
+                            <option value="15">15 min or less</option>
+                            <option value="30">30 min or less</option>
+                            <option value="45">45 min or less</option>
+                            <option value="60">1 hour or less</option>
+                            <option value="61">More than 1 hour</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="servings">👥 Serves</label>
+                        <select id="servings" class="filter-select" aria-label="Number of servings">
+                            <option value="1">1 person</option>
+                            <option value="2">2 people</option>
+                            <option value="4" selected>4 people</option>
+                            <option value="6">6 people</option>
+                            <option value="8">8+ people</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="diet">🥗 Diet</label>
+                        <select id="diet" class="filter-select" aria-label="Dietary restrictions">
+                            <option value="">Any diet</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="vegan">Vegan</option>
+                            <option value="gluten-free">Gluten-free</option>
+                            <option value="dairy-free">Dairy-free</option>
+                            <option value="ketogenic">Keto</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Search Button -->
+                <button class="search-btn" id="search-btn" type="button" disabled>
+                    <span class="btn-text">Find Recipes</span>
+                    <span class="btn-loader" aria-hidden="true"></span>
+                </button>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="results-section" aria-label="Recipe results" style="display: none;">
+                <div class="results-header" id="results-header"></div>
+                <div class="results-grid" id="results-grid"></div>
+            </section>
+
+            <!-- No Results State -->
+            <div class="no-results" id="no-results" style="display: none;">
+                <div class="error-icon">🔍</div>
+                <h2 class="error-title">No recipes found</h2>
+                <p class="error-message">
+                    We couldn't find any recipes with your current ingredients and filters.
+                </p>
+                <div class="suggestions">
+                    <h3>Try these suggestions:</h3>
+                    <ul>
+                        <li>Remove some dietary restrictions</li>
+                        <li>Increase the cooking time limit</li>
+                        <li>Add more common ingredients like onions or garlic</li>
+                        <li>Try different ingredient combinations</li>
+                    </ul>
+                </div>
+                <div class="error-actions">
+                    <button class="clear-filters-btn btn-primary">Clear All Filters</button>
+                    <button class="modify-search-btn btn-secondary">Modify Search</button>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div class="error-state" id="error-state" style="display: none;">
+                <div class="error-icon">⚠️</div>
+                <h2 class="error-title">Something went wrong</h2>
+                <p class="error-message" id="error-message">
+                    We couldn't load recipes right now. Please try again.
+                </p>
+                <div class="error-actions">
+                    <button class="retry-btn btn-primary" id="retry-btn">Try Again</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Recipe Modal -->
+    <div class="modal-overlay" id="recipe-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" aria-label="Close recipe details" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Recipe details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay" aria-hidden="true" style="display: none;">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                <div class="spinner-ring"></div>
+            </div>
+            <p class="loading-text">Searching for delicious recipes...</p>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log('🧪 Starting no-CSS test...');
+        
+        // Monitor loading overlay
+        let autoSearchDetected = false;
+        const loadingOverlay = document.getElementById('loading-overlay');
+        
+        function showAlert(message, type) {
+            const alert = document.createElement('div');
+            alert.className = `alert ${type}`;
+            alert.textContent = message;
+            document.body.appendChild(alert);
+            setTimeout(() => alert.remove(), 5000);
+        }
+        
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                    const isVisible = loadingOverlay.style.display !== 'none';
+                    console.log('🔍 Loading overlay style changed:', {
+                        display: loadingOverlay.style.display,
+                        isVisible: isVisible,
+                        fullStyle: loadingOverlay.getAttribute('style')
+                    });
+                    console.log('🔍 Call stack for style change:', new Error().stack);
+                    
+                    if (isVisible && !autoSearchDetected) {
+                        autoSearchDetected = true;
+                        console.error('❌ AUTO-SEARCH DETECTED IN NO-CSS TEST!');
+                        showAlert('❌ AUTO-SEARCH BUG DETECTED IN NO-CSS TEST!', 'error');
+                        document.body.style.backgroundColor = '#ffebee';
+                    }
+                }
+            });
+        });
+        observer.observe(loadingOverlay, { attributes: true, attributeOldValue: true });
+        
+        // Check after 3 seconds
+        setTimeout(() => {
+            if (!autoSearchDetected) {
+                console.log('✅ No auto-search detected in no-CSS test');
+                showAlert('✅ No auto-search in no-CSS test', 'success');
+                document.body.style.backgroundColor = '#e8f5e8';
+            }
+        }, 3000);
+    </script>
+
+    <!-- Scripts -->
+    <script src="js/utils/constants.js"></script>
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/services/CacheManager.js"></script>
+    <script src="js/services/RecipeAPI.js"></script>
+    <script src="js/components/IngredientInput.js"></script>
+    <script src="js/components/FilterManager.js"></script>
+    <script src="js/components/RecipeCard.js"></script>
+    <script src="js/components/RecipeModal.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- NO SERVICE WORKER, NO EXTERNAL CSS -->
+    <script>
+        console.log('No service worker, no external CSS in this test');
+    </script>
+</body>
+</html>

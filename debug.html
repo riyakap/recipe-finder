@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder - Debug Version</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .debug { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+        .loading { background: #fff3e0; color: #f57c00; }
+    </style>
+</head>
+<body>
+    <h1>🍳 Recipe Finder - Debug Mode</h1>
+    
+    <div id="debug-log"></div>
+    
+    <div>
+        <h2>Ingredient Input</h2>
+        <input type="text" id="ingredient-input" placeholder="Type ingredients...">
+        <div id="ingredient-tags"></div>
+    </div>
+    
+    <div>
+        <h2>Filters</h2>
+        <select id="cooking-time">
+            <option value="">Any time</option>
+            <option value="30">30 min or less</option>
+        </select>
+        <select id="servings">
+            <option value="4" selected>4 people</option>
+        </select>
+        <select id="diet">
+            <option value="">Any diet</option>
+            <option value="vegetarian">Vegetarian</option>
+        </select>
+    </div>
+    
+    <button id="search-btn" disabled>Find Recipes</button>
+    
+    <div id="results-section" style="display: none;">
+        <div id="results-header"></div>
+        <div id="results-grid"></div>
+    </div>
+    
+    <div id="no-results" style="display: none;">No results</div>
+    <div id="error-state" style="display: none;">
+        <p id="error-message">Error occurred</p>
+    </div>
+    <div id="loading-overlay" style="display: none;">Loading...</div>
+    <div id="recipe-modal" style="display: none;">
+        <div id="modal-body"></div>
+        <button id="modal-close">Close</button>
+    </div>
+
+    <script>
+        // Debug logging
+        function debugLog(message, type = 'info') {
+            const log = document.getElementById('debug-log');
+            const div = document.createElement('div');
+            div.className = `debug ${type}`;
+            div.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${message}`;
+            log.appendChild(div);
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        debugLog('Starting debug version...', 'info');
+
+        // Load constants inline to avoid external dependencies
+        const API_CONFIG = {
+            SPOONACULAR: {
+                BASE_URL: 'https://api.spoonacular.com/recipes',
+                API_KEY: '9c7e3df995894afe93d4e8a335f06be8',
+                ENDPOINTS: {
+                    FIND_BY_INGREDIENTS: '/findByIngredients'
+                }
+            }
+        };
+
+        const APP_SETTINGS = {
+            MAX_INGREDIENTS: 15,
+            MAX_RESULTS: 12,
+            DEFAULT_SERVINGS: 4
+        };
+
+        const ERROR_MESSAGES = {
+            NO_INGREDIENTS: 'Please add at least one ingredient to search for recipes.',
+            API_ERROR: 'We couldn\'t load recipes right now. Please try again.'
+        };
+
+        // Simple app class
+        class DebugApp {
+            constructor() {
+                debugLog('DebugApp constructor called', 'info');
+                this.ingredients = [];
+                this.isSearching = false;
+                this.init();
+            }
+
+            init() {
+                debugLog('DebugApp init() called', 'info');
+                
+                // Get DOM elements
+                this.searchBtn = document.getElementById('search-btn');
+                this.ingredientInput = document.getElementById('ingredient-input');
+                
+                debugLog('Setting up event listeners...', 'info');
+                
+                // Set up event listeners
+                if (this.searchBtn) {
+                    this.searchBtn.addEventListener('click', () => {
+                        debugLog('Search button clicked', 'info');
+                        this.performSearch();
+                    });
+                }
+
+                if (this.ingredientInput) {
+                    this.ingredientInput.addEventListener('input', (e) => {
+                        debugLog(`Input changed: "${e.target.value}"`, 'info');
+                        this.updateSearchButton();
+                    });
+                }
+
+                debugLog('Event listeners set up', 'success');
+                debugLog('DebugApp initialization complete', 'success');
+            }
+
+            updateSearchButton() {
+                const hasValue = this.ingredientInput.value.trim().length > 0;
+                this.searchBtn.disabled = !hasValue;
+                debugLog(`Search button ${hasValue ? 'enabled' : 'disabled'}`, 'info');
+            }
+
+            async performSearch() {
+                debugLog('performSearch() called', 'loading');
+                
+                if (this.isSearching) {
+                    debugLog('Search already in progress, skipping', 'info');
+                    return;
+                }
+
+                const query = this.ingredientInput.value.trim();
+                if (!query) {
+                    debugLog('No ingredients provided', 'error');
+                    return;
+                }
+
+                try {
+                    this.isSearching = true;
+                    debugLog(`Starting search for: "${query}"`, 'loading');
+                    
+                    // Show loading
+                    document.getElementById('loading-overlay').style.display = 'block';
+                    
+                    // Simulate API call
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    debugLog('Search completed successfully', 'success');
+                    
+                } catch (error) {
+                    debugLog(`Search failed: ${error.message}`, 'error');
+                } finally {
+                    this.isSearching = false;
+                    document.getElementById('loading-overlay').style.display = 'none';
+                    debugLog('Search finished', 'info');
+                }
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            debugLog('DOM loaded, creating DebugApp...', 'info');
+            window.debugApp = new DebugApp();
+        });
+
+        debugLog('Script loaded', 'success');
+    </script>
+</body>
+</html>

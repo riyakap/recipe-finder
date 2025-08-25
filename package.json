@@ -1,0 +1,45 @@
+{
+  "name": "recipe-finder",
+  "version": "1.0.0",
+  "description": "A modern web application that helps you find delicious recipes based on ingredients you have at home",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "serve": "npx http-server -p 8000",
+    "build": "echo 'No build step required for vanilla JS app'",
+    "test": "echo 'No tests specified yet'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/recipe-finder.git"
+  },
+  "keywords": [
+    "recipe",
+    "cooking",
+    "ingredients",
+    "food",
+    "meal-planning",
+    "spoonacular",
+    "vanilla-javascript",
+    "responsive",
+    "web-app"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/recipe-finder/issues"
+  },
+  "homepage": "https://github.com/yourusername/recipe-finder#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

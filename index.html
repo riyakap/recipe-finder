@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find perfect recipes based on ingredients you have. Simple, fast, and delicious meal ideas.">
+    <meta name="keywords" content="recipes, cooking, ingredients, meal planning, food">
+    <title>Recipe Finder - Cook with What You Have</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/styles.css" as="style">
+    <link rel="preload" href="js/app.js" as="script">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="container">
+            <h1 class="app-title">
+                <span class="app-icon">🍳</span>
+                Recipe Finder
+            </h1>
+            <p class="app-subtitle">Find perfect recipes with what you have</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main">
+        <div class="container">
+            <!-- Search Section -->
+            <section class="search-section" aria-label="Recipe search">
+                <div class="ingredient-input-container">
+                    <label for="ingredient-input" class="input-label">
+                        What ingredients do you have?
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="text" 
+                               id="ingredient-input" 
+                               class="ingredient-input"
+                               placeholder="Type ingredients (e.g., chicken, rice, tomatoes)..."
+                               autocomplete="off"
+                               aria-describedby="ingredient-help"
+                               spellcheck="false">
+                        <div class="suggestions-dropdown" 
+                             id="suggestions-dropdown" 
+                             role="listbox" 
+                             aria-label="Ingredient suggestions"
+                             style="display: none;"></div>
+                    </div>
+                    <div id="ingredient-help" class="sr-only">
+                        Type ingredient names and select from suggestions. Press Enter to add ingredients.
+                    </div>
+                    <div class="ingredient-tags" id="ingredient-tags" role="list" aria-label="Selected ingredients"></div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label for="cooking-time">⏱️ Cooking Time</label>
+                        <select id="cooking-time" class="filter-select" aria-label="Maximum cooking time">
+                            <option value="">Any time</option>
+                            <option value="15">15 min or less</option>
+                            <option value="30">30 min or less</option>
+                            <option value="45">45 min or less</option>
+                            <option value="60">1 hour or less</option>
+                            <option value="61">More than 1 hour</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="servings">👥 Serves</label>
+                        <select id="servings" class="filter-select" aria-label="Number of servings">
+                            <option value="1">1 person</option>
+                            <option value="2">2 people</option>
+                            <option value="4" selected>4 people</option>
+                            <option value="6">6 people</option>
+                            <option value="8">8+ people</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="diet">🥗 Diet</label>
+                        <select id="diet" class="filter-select" aria-label="Dietary restrictions">
+                            <option value="">Any diet</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="vegan">Vegan</option>
+                            <option value="gluten-free">Gluten-free</option>
+                            <option value="dairy-free">Dairy-free</option>
+                            <option value="ketogenic">Keto</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Search Button -->
+                <button class="search-btn" id="search-btn" type="button" disabled>
+                    <span class="btn-text">Find Recipes</span>
+                    <span class="btn-loader" aria-hidden="true"></span>
+                </button>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="results-section" aria-label="Recipe results" style="display: none;">
+                <div class="results-header" id="results-header"></div>
+                <div class="results-grid" id="results-grid"></div>
+            </section>
+
+            <!-- No Results State -->
+            <div class="no-results" id="no-results" style="display: none;">
+                <div class="error-icon">🔍</div>
+                <h2 class="error-title">No recipes found</h2>
+                <p class="error-message">
+                    We couldn't find any recipes with your current ingredients and filters.
+                </p>
+                <div class="suggestions">
+                    <h3>Try these suggestions:</h3>
+                    <ul>
+                        <li>Remove some dietary restrictions</li>
+                        <li>Increase the cooking time limit</li>
+                        <li>Add more common ingredients like onions or garlic</li>
+                        <li>Try different ingredient combinations</li>
+                    </ul>
+                </div>
+                <div class="error-actions">
+                    <button class="clear-filters-btn btn-primary">Clear All Filters</button>
+                    <button class="modify-search-btn btn-secondary">Modify Search</button>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div class="error-state" id="error-state" style="display: none;">
+                <div class="error-icon">⚠️</div>
+                <h2 class="error-title">Something went wrong</h2>
+                <p class="error-message" id="error-message">
+                    We couldn't load recipes right now. Please try again.
+                </p>
+                <div class="error-actions">
+                    <button class="retry-btn btn-primary" id="retry-btn">Try Again</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Recipe Modal -->
+    <div class="modal-overlay" id="recipe-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" aria-label="Close recipe details" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Recipe details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay" aria-hidden="true" style="display: none;">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                <div class="spinner-ring"></div>
+            </div>
+            <p class="loading-text">Searching for delicious recipes...</p>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils/constants.js"></script>
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/services/CacheManager.js"></script>
+    <script src="js/services/RecipeAPI.js"></script>
+    <script src="js/components/IngredientInput.js"></script>
+    <script src="js/components/FilterManager.js"></script>
+    <script src="js/components/RecipeCard.js"></script>
+    <script src="js/components/RecipeModal.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        } else if (window.location.protocol === 'file:') {
+            console.log('🔧 Service Worker disabled for file:// protocol');
+        }
+    </script>
+</body>
+</html>

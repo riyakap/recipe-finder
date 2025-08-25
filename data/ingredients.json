@@ -1,0 +1,370 @@
+{
+  "common_ingredients": [
+    {
+      "name": "chicken",
+      "category": "protein",
+      "aliases": ["chicken breast", "chicken thigh", "chicken leg", "whole chicken"],
+      "icon": "🐔"
+    },
+    {
+      "name": "beef",
+      "category": "protein",
+      "aliases": ["ground beef", "beef steak", "beef roast", "beef chuck"],
+      "icon": "🥩"
+    },
+    {
+      "name": "pork",
+      "category": "protein",
+      "aliases": ["pork chops", "ground pork", "pork shoulder", "bacon"],
+      "icon": "🐷"
+    },
+    {
+      "name": "fish",
+      "category": "protein",
+      "aliases": ["salmon", "tuna", "cod", "tilapia", "mackerel"],
+      "icon": "🐟"
+    },
+    {
+      "name": "shrimp",
+      "category": "protein",
+      "aliases": ["prawns", "jumbo shrimp"],
+      "icon": "🦐"
+    },
+    {
+      "name": "eggs",
+      "category": "protein",
+      "aliases": ["egg", "chicken eggs"],
+      "icon": "🥚"
+    },
+    {
+      "name": "tofu",
+      "category": "protein",
+      "aliases": ["firm tofu", "silken tofu", "extra firm tofu"],
+      "icon": "🧈"
+    },
+    {
+      "name": "beans",
+      "category": "protein",
+      "aliases": ["black beans", "kidney beans", "pinto beans", "chickpeas"],
+      "icon": "🫘"
+    },
+    {
+      "name": "onions",
+      "category": "vegetable",
+      "aliases": ["onion", "yellow onion", "white onion", "red onion"],
+      "icon": "🧅"
+    },
+    {
+      "name": "garlic",
+      "category": "vegetable",
+      "aliases": ["garlic cloves", "minced garlic"],
+      "icon": "🧄"
+    },
+    {
+      "name": "tomatoes",
+      "category": "vegetable",
+      "aliases": ["tomato", "cherry tomatoes", "roma tomatoes", "beefsteak tomatoes"],
+      "icon": "🍅"
+    },
+    {
+      "name": "carrots",
+      "category": "vegetable",
+      "aliases": ["carrot", "baby carrots"],
+      "icon": "🥕"
+    },
+    {
+      "name": "potatoes",
+      "category": "vegetable",
+      "aliases": ["potato", "russet potatoes", "red potatoes", "yukon potatoes"],
+      "icon": "🥔"
+    },
+    {
+      "name": "sweet potatoes",
+      "category": "vegetable",
+      "aliases": ["sweet potato", "yams"],
+      "icon": "🍠"
+    },
+    {
+      "name": "bell peppers",
+      "category": "vegetable",
+      "aliases": ["bell pepper", "red pepper", "green pepper", "yellow pepper"],
+      "icon": "🫑"
+    },
+    {
+      "name": "mushrooms",
+      "category": "vegetable",
+      "aliases": ["mushroom", "button mushrooms", "portobello", "shiitake"],
+      "icon": "🍄"
+    },
+    {
+      "name": "spinach",
+      "category": "vegetable",
+      "aliases": ["fresh spinach", "baby spinach"],
+      "icon": "🥬"
+    },
+    {
+      "name": "broccoli",
+      "category": "vegetable",
+      "aliases": ["broccoli florets"],
+      "icon": "🥦"
+    },
+    {
+      "name": "cauliflower",
+      "category": "vegetable",
+      "aliases": ["cauliflower florets"],
+      "icon": "🥬"
+    },
+    {
+      "name": "zucchini",
+      "category": "vegetable",
+      "aliases": ["zucchini squash", "courgette"],
+      "icon": "🥒"
+    },
+    {
+      "name": "cucumber",
+      "category": "vegetable",
+      "aliases": ["cucumbers"],
+      "icon": "🥒"
+    },
+    {
+      "name": "lettuce",
+      "category": "vegetable",
+      "aliases": ["romaine lettuce", "iceberg lettuce", "butter lettuce"],
+      "icon": "🥬"
+    },
+    {
+      "name": "avocado",
+      "category": "vegetable",
+      "aliases": ["avocados"],
+      "icon": "🥑"
+    },
+    {
+      "name": "corn",
+      "category": "vegetable",
+      "aliases": ["corn kernels", "sweet corn"],
+      "icon": "🌽"
+    },
+    {
+      "name": "rice",
+      "category": "grain",
+      "aliases": ["white rice", "brown rice", "jasmine rice", "basmati rice"],
+      "icon": "🍚"
+    },
+    {
+      "name": "pasta",
+      "category": "grain",
+      "aliases": ["spaghetti", "penne", "fusilli", "linguine", "fettuccine"],
+      "icon": "🍝"
+    },
+    {
+      "name": "bread",
+      "category": "grain",
+      "aliases": ["white bread", "whole wheat bread", "sourdough"],
+      "icon": "🍞"
+    },
+    {
+      "name": "flour",
+      "category": "grain",
+      "aliases": ["all-purpose flour", "wheat flour", "bread flour"],
+      "icon": "🌾"
+    },
+    {
+      "name": "quinoa",
+      "category": "grain",
+      "aliases": ["quinoa grain"],
+      "icon": "🌾"
+    },
+    {
+      "name": "oats",
+      "category": "grain",
+      "aliases": ["rolled oats", "steel cut oats", "oatmeal"],
+      "icon": "🌾"
+    },
+    {
+      "name": "olive oil",
+      "category": "pantry",
+      "aliases": ["extra virgin olive oil", "cooking oil"],
+      "icon": "🫒"
+    },
+    {
+      "name": "vegetable oil",
+      "category": "pantry",
+      "aliases": ["canola oil", "sunflower oil"],
+      "icon": "🛢️"
+    },
+    {
+      "name": "butter",
+      "category": "pantry",
+      "aliases": ["unsalted butter", "salted butter"],
+      "icon": "🧈"
+    },
+    {
+      "name": "salt",
+      "category": "pantry",
+      "aliases": ["table salt", "sea salt", "kosher salt"],
+      "icon": "🧂"
+    },
+    {
+      "name": "pepper",
+      "category": "pantry",
+      "aliases": ["black pepper", "ground pepper"],
+      "icon": "🧂"
+    },
+    {
+      "name": "sugar",
+      "category": "pantry",
+      "aliases": ["white sugar", "granulated sugar", "brown sugar"],
+      "icon": "🍯"
+    },
+    {
+      "name": "honey",
+      "category": "pantry",
+      "aliases": ["raw honey"],
+      "icon": "🍯"
+    },
+    {
+      "name": "vinegar",
+      "category": "pantry",
+      "aliases": ["white vinegar", "apple cider vinegar", "balsamic vinegar"],
+      "icon": "🍶"
+    },
+    {
+      "name": "soy sauce",
+      "category": "pantry",
+      "aliases": ["low sodium soy sauce"],
+      "icon": "🍶"
+    },
+    {
+      "name": "cheese",
+      "category": "dairy",
+      "aliases": ["cheddar cheese", "mozzarella", "parmesan", "swiss cheese"],
+      "icon": "🧀"
+    },
+    {
+      "name": "milk",
+      "category": "dairy",
+      "aliases": ["whole milk", "2% milk", "skim milk"],
+      "icon": "🥛"
+    },
+    {
+      "name": "yogurt",
+      "category": "dairy",
+      "aliases": ["greek yogurt", "plain yogurt"],
+      "icon": "🥛"
+    },
+    {
+      "name": "cream",
+      "category": "dairy",
+      "aliases": ["heavy cream", "whipping cream", "sour cream"],
+      "icon": "🥛"
+    },
+    {
+      "name": "basil",
+      "category": "herb",
+      "aliases": ["fresh basil", "dried basil"],
+      "icon": "🌿"
+    },
+    {
+      "name": "oregano",
+      "category": "herb",
+      "aliases": ["dried oregano", "fresh oregano"],
+      "icon": "🌿"
+    },
+    {
+      "name": "thyme",
+      "category": "herb",
+      "aliases": ["fresh thyme", "dried thyme"],
+      "icon": "🌿"
+    },
+    {
+      "name": "rosemary",
+      "category": "herb",
+      "aliases": ["fresh rosemary", "dried rosemary"],
+      "icon": "🌿"
+    },
+    {
+      "name": "parsley",
+      "category": "herb",
+      "aliases": ["fresh parsley", "flat-leaf parsley"],
+      "icon": "🌿"
+    },
+    {
+      "name": "cilantro",
+      "category": "herb",
+      "aliases": ["fresh cilantro", "coriander"],
+      "icon": "🌿"
+    },
+    {
+      "name": "paprika",
+      "category": "spice",
+      "aliases": ["sweet paprika", "smoked paprika"],
+      "icon": "🌶️"
+    },
+    {
+      "name": "cumin",
+      "category": "spice",
+      "aliases": ["ground cumin", "cumin seeds"],
+      "icon": "🌶️"
+    },
+    {
+      "name": "chili powder",
+      "category": "spice",
+      "aliases": ["chili seasoning"],
+      "icon": "🌶️"
+    },
+    {
+      "name": "garlic powder",
+      "category": "spice",
+      "aliases": ["granulated garlic"],
+      "icon": "🌶️"
+    },
+    {
+      "name": "onion powder",
+      "category": "spice",
+      "aliases": ["granulated onion"],
+      "icon": "🌶️"
+    },
+    {
+      "name": "cinnamon",
+      "category": "spice",
+      "aliases": ["ground cinnamon", "cinnamon sticks"],
+      "icon": "🌶️"
+    },
+    {
+      "name": "ginger",
+      "category": "spice",
+      "aliases": ["fresh ginger", "ground ginger", "ginger root"],
+      "icon": "🫚"
+    },
+    {
+      "name": "lemon",
+      "category": "fruit",
+      "aliases": ["lemon juice", "lemon zest"],
+      "icon": "🍋"
+    },
+    {
+      "name": "lime",
+      "category": "fruit",
+      "aliases": ["lime juice", "lime zest"],
+      "icon": "🍋"
+    },
+    {
+      "name": "apple",
+      "category": "fruit",
+      "aliases": ["apples", "green apple", "red apple"],
+      "icon": "🍎"
+    },
+    {
+      "name": "banana",
+      "category": "fruit",
+      "aliases": ["bananas"],
+      "icon": "🍌"
+    },
+    {
+      "name": "berries",
+      "category": "fruit",
+      "aliases": ["strawberries", "blueberries", "raspberries", "blackberries"],
+      "icon": "🫐"
+    }
+  ]
+}
